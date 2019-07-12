@@ -13,7 +13,15 @@ router.get('/', async (req, res) => {
     }
 })
 
-
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const action = await actionDb.get(id)
+        res.status(200).json(action);  
+    } catch (error){
+        res.status(500).json({ message: 'error getting post with that id'})
+    }
+})
 
 
 module.exports = router;
