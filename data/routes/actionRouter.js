@@ -63,6 +63,23 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.put('/:id', async (req, res) => {
+    const actionData = req.body;
+    const id = req.params.id
+    try {
+        const action = await actionDb.update(id, actionData);
+        if(action) {
+            res.status(200).json(actionData)
+        } else {
+            res.status(404).json({ message: 'The hub could not be found' });
+        }
+    } catch(error) {
+        res.status(500).json({
+            message: 'Error updating the hub',
+          });
+    }
+});
+
 
     // const actionData = req.body;
     // const {project_id, description, notes, completed} = req.body;
