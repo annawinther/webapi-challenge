@@ -27,6 +27,21 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/:id/actions', async (req, res) => {
+    const projectId = req.params.id;
+    try {
+        const projectAction = await projectDb.getProjectActions(projectId);
+        if(projectAction.length > 0){
+            res.status(200).json(projectAction);
+        } else {
+            res.status(404).json({ message: "The post with the specified ID does not exist." })
+        }
+    } catch (error){
+        res.status(500).json({
+            message: 'could not get the actions from this project'
+        })
+    }
+});
 
 router.post('/', async (req, res) => {
     const projectData = req.body;
@@ -72,4 +87,5 @@ router.put('/:id', async (req, res) => {
           });
     }
 });
+
 module.exports = router;
