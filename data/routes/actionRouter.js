@@ -6,10 +6,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const users = await actionDb.get();
-        res.status(200).json(users);
+        const actions = await actionDb.get();
+        res.status(200).json(actions);
     } catch (error) {
-        res.status(500).json({ message: 'error getting all users'})
+        res.status(500).json({ message: 'error getting all actions'})
     }
 })
 
@@ -73,29 +73,7 @@ router.put('/:id', async (req, res) => {
 });
 
 
-    // const actionData = req.body;
-    // const {project_id, description, notes, completed} = req.body;
-    // try {
-    //     const action = await actionDb.insert({ project_id, description, notes, completed });
-    //     if (!project_id) {
-    //         res.status(400).json({error: `Need to Provide Project Id`})
-    //     } else if (!description) {
-    //         res.status(400).json({error: `Need to Provide Description Less than 128 Characters`})
-    //     } else if (!notes) {
-    //         res.status(400).json({error: `Need to Provide Notes`})
-    //     } else {
-    //         res.status(201).json(actionData)
-    //     }
-        // if(!actionData){
-        //     res.status(400).json({ message: 'missing body of request'})
-        // } else {
-        //     res.status(201).json(actionData)
-        // }
-    // } catch (error) {
-    //     res.status(500).json({
-    //         message: 'Error adding the new action',
-    //       });
-    // }
+    
 
 
 module.exports = router;
