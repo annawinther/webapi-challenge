@@ -28,24 +28,16 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const {project_id, description, notes, completed} = req.body;
-    if (!project_id) {
-        res.status(400).json({error: `Need to Provide Project Id`})
-    } else if (!description.substr(1,128)) {
-        res.status(400).json({error: `Need to Provide Description Less than 128 Characters`})
-    } else if (!notes) {
-        res.status(400).json({error: `Need to Provide Notes`})
-    } else {
-        actionDb
-        .insert({project_id, description, notes, completed})
-        .then(newAction => {
-            res.status(200).json(newAction)
-        })
-        .catch(() => {
-            res.status(500).json({error: `Could Not Add New Action`})
-        })
+    const actionData = req.body;
+    try{
+        const action = await actionDb.insert(actionData);
+        res.status(201).json(actionData)
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error adding the user',
+          });
     }
-})  
+}); 
 
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
