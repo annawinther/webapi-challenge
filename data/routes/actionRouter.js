@@ -45,6 +45,25 @@ router.post('/', async (req, res) => {
             res.status(500).json({error: `Could Not Add New Action`})
         })
     }
+})  
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const count = await actionDb.remove(id);
+        if( count > 0 ){
+            res.status(200).json({ message: `post with id ${id} has been deleted `})
+        } else {
+            res.status(404).json({ message: 'The post with that id could not be found' })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error removing the post',
+          });
+    }
+});
+
+
     // const actionData = req.body;
     // const {project_id, description, notes, completed} = req.body;
     // try {
@@ -68,6 +87,6 @@ router.post('/', async (req, res) => {
     //         message: 'Error adding the new action',
     //       });
     // }
-}) 
+
 
 module.exports = router;
