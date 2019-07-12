@@ -26,13 +26,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Express is a web application framework that sits on top of the Node.js web server. It adds extra functionality such as routing, middleware support and a simpler API. Two parts about Express I learned about this week was: 1) About express middleware, which allows us to add the extra functionality to our application. Middleware provide a way to extend the features provided by the Express framework. 2) Express Routing, which is the way express is able to break the application into different request handlers for each URL+HTTP method combination. By using Routing we can easily map incoming requests to the appropriate request handler based on the URL and HTTP Method used.
+
 - [ ] Describe Middleware?
+
+Middleware is a function that get the request and response object. They preform certain operations on them and can move either into the next middleware or return a response back to the client. Express middleware stack is an array of functions.
 
 - [ ] Describe a Resource?
 
+A resource is an item in the server that can be used and passed between server and client, and is accessed by the URL that is being supplied. They represent the payload of the route handler functions most of the time in the form of JSON.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+The API can return a http status with a status code (eg. 200) which also contains the human readable status (OK) which means the request was a success. In this way the client nows if the request was successful or not. Other status codes include 201 for Created, 202 for Accepted etc.
+
 - [ ] How can we partition our application into sub-applications?
+
+We can do this by using Express Router which can serve our application and routing our API with its own middleware. We can also write custom middleware that acts on these routes and we can separate them into different files having these modular middleware that can be used across one or many of our route handler paths.
 
 ## Project Setup
 
