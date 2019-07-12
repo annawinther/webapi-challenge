@@ -28,15 +28,67 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    // const id = req.params.id;
+    // const description = req.body.description;
+    // // const notes = req.body.notes;
+    // try {
+    //   const project = await projectDb.get(id);
+    //   if (!project) {
+    //     return res.status(404).json({
+    //       message: "Project does not exist"
+    //     });
+    //   }
+    // //   if(!description){
+    // //     return res.status(400).json({
+    // //         message: "dscription is required"
+    // //       });
+    // //   }
+    // //   if (!notes) {
+    // //     res.status(400).json({
+    // //       message: "Text is required"
+    // //     });
+    //    else {
+    //     const newAction = await actionDb.insert({
+    //       project_id: id,
+    //       description,
+    //     //   notes,
+    //     });
+    //     res.status(201).json(newAction);
+    //   }
+    // } catch (err) {
+    //   res.status(500).json({
+    //     message: err.toString()
+    //   });
+    // }
+
     const actionData = req.body;
-    try{
-        const action = await actionDb.insert(actionData);
-        res.status(201).json(actionData)
+    // const project_id = req.params.id;
+    try {
+        const newAction = await actionDb.insert(actionData);
+
+        if(!actionData.project_id){
+            res.status(400).json({ message: 'please add action to an existing project' })
+        } 
+        else {
+            res.status(201).json(newAction)
+        }
     } catch (error) {
         res.status(500).json({
-            message: 'Error adding the user',
-          });
+             message: 'Error adding the action to this project. Make sure to add to an existing project'
+             });
     }
+        // const project = await projectDb.get(project_id);
+        // if(!project){
+        //     res.status(400).json({ message: 'please add action to an existing project'})
+        // }
+        // const newAction = await actionDb.insert(actionData)
+        
+        // else if(!description) {
+        //     res.status(400).json({ message: 'please add descriptionto action'})
+        // } else if(!notes){
+        //     res.status(400).json({ message: 'please add a note to actiont'})
+        // } 
+        
 }); 
 
 router.delete('/:id', async (req, res) => {

@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
     const projectData = req.body;
     try{
         const project = await projectDb.insert(projectData);
-        res.status(201).json(projectData)
+        res.status(201).json(project)
     } catch (error) {
         res.status(500).json({
             message: 'Error adding the project',
